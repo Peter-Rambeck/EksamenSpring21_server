@@ -52,6 +52,13 @@ public class OwnerFacade implements OwnerRepository {
 //        return 
 //        
 //    }
+    
+    
+    public List<OwnerDTO> getAll() throws WebApplicationException {
+        EntityManager em = emf.createEntityManager();
+        List<Owner> owners = em.createQuery("SELECT o FROM Owner o", Owner.class).getResultList();
+        return OwnerDTO.getDtos(owners);
+    }
 
     @Override
     public void populate() {

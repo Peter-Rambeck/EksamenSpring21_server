@@ -10,7 +10,7 @@ public interface OwnerRepository {
 
     // public DogDTO getById(int id) throws WebApplicationException;
 
-    // public List<DogDTO> getAll() throws WebApplicationException;
+    public List<OwnerDTO> getAll() throws WebApplicationException;
 
     // public DogDTO createDog(DogDTO dogDTO) throws WebApplicationException;
     

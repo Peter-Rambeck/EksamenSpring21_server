@@ -45,11 +45,11 @@ public class OwnerDTO {
     }
     
     
-//    public static List<OwnerDTO> getDtos(List<Dog> dogs) {
-//        List<OwnerDTO> dogdtos = new ArrayList();
-//        dogs.forEach(dog -> dogdtos.add(new OwnerDTO(dog)));
-//        return dogdtos;
-//    }
+    public static List<OwnerDTO> getDtos(List<Owner> owners) {
+        List<OwnerDTO> ownerdtos = new ArrayList();
+        owners.forEach(owner -> ownerdtos.add(new OwnerDTO(owner)));
+        return ownerdtos;
+    }
 
     public Integer getId() {
         return id;
