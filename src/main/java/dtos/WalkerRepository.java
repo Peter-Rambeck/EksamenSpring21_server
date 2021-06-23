@@ -11,5 +11,8 @@ public interface WalkerRepository {
     public List<WalkerDTO> getAll() throws WebApplicationException;
 
     public WalkerDTO createWalker(WalkerDTO walkerDTO) throws WebApplicationException;
+    
+    public void populate() throws WebApplicationException;
 
+    
 }

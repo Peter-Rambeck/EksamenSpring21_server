@@ -74,4 +74,30 @@ public class WalkerFacade implements WalkerRepository {
         }
         return new WalkerDTO(walker);
     }
-}
+    
+    
+     @Override
+    public void populate() {
+
+        EntityManager em = emf.createEntityManager();
+        Walker walker1 = new Walker("Walker1", "Address1", 1111);
+        Walker walker2 = new Walker("Walker2", "Address2", 2222);
+        Walker walker3 = new Walker("Walker3", "Address3", 3333);
+        
+        try {
+            em.getTransaction().begin();
+            em.persist(walker1);
+            em.persist(walker2);
+            em.persist(walker3);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            throw new WebApplicationException("Populate went wrong");
+        } finally {
+            em.close();
+        }
+    }
+    
+   
+    
+    
+    }
