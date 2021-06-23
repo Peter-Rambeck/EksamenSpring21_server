@@ -18,7 +18,7 @@ import javax.ws.rs.WebApplicationException;
  *
  * Rename Class to a relevant name Add add relevant facade methods
  */
-public class DogFacade implements DogRepository{
+public class DogFacade implements DogRepository {
 
     private static DogFacade instance;
     private static EntityManagerFactory emf;
@@ -57,8 +57,8 @@ public class DogFacade implements DogRepository{
     @Override
     public DogDTO createDog(DogDTO dogDTO) throws WebApplicationException {
         EntityManager em = emf.createEntityManager();
-       Dog dog = new Dog(dogDTO.getName(), dogDTO.getBreed(), dogDTO.getImage(), dogDTO.getImage(), dogDTO.getBirthdate());
-         try {
+        Dog dog = new Dog(dogDTO.getName(), dogDTO.getBreed(), dogDTO.getImage(), dogDTO.getImage(), dogDTO.getBirthdate());
+        try {
             em.getTransaction().begin();
             em.persist(dog);
             em.getTransaction().commit();
@@ -67,17 +67,18 @@ public class DogFacade implements DogRepository{
         }
         return new DogDTO(dog);
     }
-    
-    
-     @Override
+
+    @Override
     public void populate() {
 
         EntityManager em = emf.createEntityManager();
         Dog dog1 = new Dog("Dog1", "breed1", "image1", "gender1", "birthdate1");
-        
+        Dog dog2 = new Dog("Dog2", "breed2", "image2", "gender2", "birthdate2");
+
         try {
             em.getTransaction().begin();
             em.persist(dog1);
+            em.persist(dog2);
             em.getTransaction().commit();
         } catch (Exception e) {
             throw new WebApplicationException("Populate went wrong");
@@ -86,7 +87,4 @@ public class DogFacade implements DogRepository{
         }
     }
 
-   
-    
-    
-    }
+}
