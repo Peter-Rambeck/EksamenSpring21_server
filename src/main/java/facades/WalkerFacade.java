@@ -2,7 +2,7 @@ package facades;
 
 import dtos.RenameMeDTO;
 import dtos.WalkerDTO;
-import dtos.WalkerRepository;
+import entities.WalkerRepository;
 import entities.Walker;
 import entities.renameme.RenameMe;
 import entities.renameme.RenameMeRepository;

@@ -1,6 +1,7 @@
-package dtos;
+package entities;
 
 
+import dtos.WalkerDTO;
 import java.util.List;
 import javax.ws.rs.WebApplicationException;
 
