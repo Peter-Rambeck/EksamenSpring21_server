@@ -51,6 +51,7 @@ public class DogResource extends Provider {
     }
 
     @Override
+    @RolesAllowed("admin")
     public Response create(String jsonBody) {
         DogDTO dogDTO = gson.fromJson(jsonBody, DogDTO.class);
         DogDTO createdDog = REPO.createDog(dogDTO);
@@ -85,7 +86,7 @@ public class DogResource extends Provider {
     }
 
     @Override
-    // @RolesAllowed("admin")
+    @RolesAllowed("admin")
     public Response delete(int id) {
         REPO.delete(id);
         return Response.ok().build();
