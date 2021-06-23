@@ -96,16 +96,18 @@ public class DogFacade implements DogRepository {
         Dog dog2 = new Dog("Dog2", "breed2", "image2", "gender2", "birthdate2");
         
         Owner owner1 = new Owner("Owner1", "address1", "address1", 1);
-        Owner owner2 = new Owner("Owner2", "address2", "address2", 12);
-        Owner owner3 = new Owner("Owner3", "address3", "address3", 12);
+        Owner owner2 = new Owner("Owner2", "address2", "address2", 1);
+        Owner owner3 = new Owner("Owner3", "address3", "address3", 1);
 
         try {
             em.getTransaction().begin();
-            em.persist(dog1);
-            em.persist(dog2);
             em.persist(owner1);
             em.persist(owner2);
             em.persist(owner3);
+            em.persist(dog1);
+            em.persist(dog2);
+            
+         
             em.getTransaction().commit();
         } catch (Exception e) {
             throw new WebApplicationException("Populate went wrong");
