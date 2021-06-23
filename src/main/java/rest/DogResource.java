@@ -14,8 +14,10 @@ import facades.WalkerFacade;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import utils.EMF_Creator;
@@ -63,6 +65,16 @@ public class DogResource extends Provider {
         DogDTO dogDTO = gson.fromJson(jsonBody, DogDTO.class);
         DogDTO editDog = REPO.edit(dogDTO);
         return Response.ok(editDog).build();
+    }
+
+    @PUT
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/add/{id}")
+    public Response addOwner(@PathParam("id") int id, String jsonBody) {
+        DogDTO dogDTO = gson.fromJson(jsonBody, DogDTO.class);
+        DogDTO addOwner = REPO.addOwner(id, dogDTO);
+        return Response.ok(addOwner).build();
     }
 
     @Override

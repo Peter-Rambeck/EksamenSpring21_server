@@ -18,6 +18,8 @@ public interface DogRepository {
     public void populate() throws WebApplicationException;
     
     public void delete(int id) throws WebApplicationException;
+    
+    public DogDTO addOwner(int id, DogDTO dogDTO) throws WebApplicationException;
 
     
     

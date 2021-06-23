@@ -8,6 +8,7 @@ package facades;
 import dtos.RenameMeDTO;
 import dtos.DogDTO;
 import entities.Dog;
+import entities.Owner;
 import static facades.FacadeExampleTest.renameMe1;
 import static facades.FacadeExampleTest.renameMe2;
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ public class DogFacadeTest {
 
     Dog dog1;
     Dog dog2;
+    Owner owner;
 
     public DogFacadeTest() {
     }
@@ -55,11 +57,13 @@ public class DogFacadeTest {
 
         dog1 = new Dog("name1", "breed1", "image1", "gender1", "birthdate1");
         dog2 = new Dog("name2", "breed2", "image2", "gender2", "birthdate2");
+        owner = new Owner("OwnerName", "OwnerAddress", "OwnerAddress2", 1234);
 
         try {
             em.getTransaction().begin();
             em.persist(dog1);
             em.persist(dog2);
+            em.persist(owner);
             em.getTransaction().commit();
         } catch (Exception e) {
             throw new WebApplicationException("noget gik galt");
@@ -75,7 +79,7 @@ public class DogFacadeTest {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            // em.createNamedQuery("Dog.deleteAllRows").executeUpdate();
+            em.createNamedQuery("Dog.deleteAllRows").executeUpdate();
             em.getTransaction().commit();
         } finally {
             em.close();
@@ -93,12 +97,12 @@ public class DogFacadeTest {
     @Test
     public void testGetAll() {
 
-//        List<DogDTO> expected = new ArrayList<>();
-//        expected.add(new DogDTO(dog1));
-//        expected.add(new DogDTO(dog2));
-//
-//        List<DogDTO> actual = facade.getAll();
-//        assertEquals(expected.size(), actual.size());
+        List<DogDTO> expected = new ArrayList<>();
+        expected.add(new DogDTO(dog1));
+        expected.add(new DogDTO(dog2));
+
+        List<DogDTO> actual = facade.getAll();
+        // assertEquals(expected.size(), actual.size());
 
 //        
 //        System.out.println("getAll");
@@ -121,18 +125,19 @@ public class DogFacadeTest {
     
       @Test
     public void testEditdog() {
-        
-//        dog1 = new Dog(1, "name2", "breed1", "image1", "gender1", "birthdate1");
-//
-//        DogDTO dogDTO = new DogDTO(dog1);
-//        DogDTO edit = facade.edit(dogDTO);
-//        System.out.println(edit);
-//        assertNotEquals(dogDTO, edit);
-//        
+        DogDTO oldDog = new DogDTO(dog1);
+        Dog dog = new Dog(dog1.getId(), "name2", "breed1", "image1", "gender1", "birthdate1");
+        DogDTO newDog = facade.edit(new DogDTO(dog));
+        assertNotEquals(oldDog.getName(), newDog.getImage());
     }
     
     @Test
-    public void testDeletedog() {
+    public void testAdddog() {
+        
+        DogDTO dogdto = new DogDTO(dog1);
+        int id = owner.getId();
+        DogDTO dog = facade.addOwner(id, dogdto);
+        System.out.println(dog);
 
         
         

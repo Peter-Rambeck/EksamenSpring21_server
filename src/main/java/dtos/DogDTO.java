@@ -6,10 +6,10 @@
 package dtos;
 
 import entities.Dog;
+import entities.Owner;
 import entities.Walker;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class DogDTO {
 
@@ -19,6 +19,7 @@ public class DogDTO {
     private String image;
     private String gender;
     private String birthdate;
+    private Owner owner;
 
     public DogDTO(String name, String breed, String image, String gender, String birthdate) {
         this.name = name;
@@ -26,6 +27,23 @@ public class DogDTO {
         this.image = image;
         this.gender = gender;
         this.birthdate = birthdate;
+    }
+    
+    public DogDTO(String name, String breed, String image, String gender, String birthdate, Owner owner) {
+        this.name = name;
+        this.breed = breed;
+        this.image = image;
+        this.gender = gender;
+        this.birthdate = birthdate;
+        this.owner = owner;
+    }
+
+    public Owner getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Owner owner) {
+        this.owner = owner;
     }
 
     public DogDTO(Dog dog) {
@@ -35,6 +53,7 @@ public class DogDTO {
         this.image = dog.getImage();
         this.gender = dog.getGender();
         this.birthdate = dog.getBirthdate();
+        this.owner = dog.getOwner();
     }
 
     public static List<DogDTO> getDtos(List<Dog> dogs) {
@@ -90,5 +109,12 @@ public class DogDTO {
     public void setBirthdate(String birthdate) {
         this.birthdate = birthdate;
     }
+
+    @Override
+    public String toString() {
+        return "DogDTO{" + "id=" + id + ", name=" + name + ", breed=" + breed + ", image=" + image + ", gender=" + gender + ", birthdate=" + birthdate + ", owner=" + owner + '}';
+    }
+    
+    
 
 }

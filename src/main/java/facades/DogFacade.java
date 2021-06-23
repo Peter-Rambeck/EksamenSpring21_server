@@ -5,6 +5,7 @@ import dtos.RenameMeDTO;
 import dtos.WalkerDTO;
 import entities.Dog;
 import entities.DogRepository;
+import entities.Owner;
 import entities.WalkerRepository;
 import entities.Walker;
 import entities.renameme.RenameMe;
@@ -67,6 +68,25 @@ public class DogFacade implements DogRepository {
         }
         return new DogDTO(dog);
     }
+    
+    @Override
+    public DogDTO addOwner(int id, DogDTO dogdto) {
+        EntityManager em = emf.createEntityManager();        
+        Dog dog;
+        Owner owner;
+        try {
+            em.getTransaction().begin();
+            dog = em.find(Dog.class, dogdto.getId());
+            owner = em.find(Owner.class, id);
+            dog.setOwner(owner);
+            em.persist(dog);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+        return new DogDTO(dog);
+        
+    }
 
     @Override
     public void populate() {
@@ -74,11 +94,18 @@ public class DogFacade implements DogRepository {
         EntityManager em = emf.createEntityManager();
         Dog dog1 = new Dog("Dog1", "breed1", "image1", "gender1", "birthdate1");
         Dog dog2 = new Dog("Dog2", "breed2", "image2", "gender2", "birthdate2");
+        
+        Owner owner1 = new Owner("Owner1", "address1", "address1", 1);
+        Owner owner2 = new Owner("Owner2", "address2", "address2", 12);
+        Owner owner3 = new Owner("Owner3", "address3", "address3", 12);
 
         try {
             em.getTransaction().begin();
             em.persist(dog1);
             em.persist(dog2);
+            em.persist(owner1);
+            em.persist(owner2);
+            em.persist(owner3);
             em.getTransaction().commit();
         } catch (Exception e) {
             throw new WebApplicationException("Populate went wrong");
