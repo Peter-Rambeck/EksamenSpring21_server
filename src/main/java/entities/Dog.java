@@ -4,9 +4,11 @@ import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
@@ -30,7 +32,13 @@ public class Dog implements Serializable {
     private String gender;
     @Column(name = "birthdate")
     private String birthdate;
+    
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    //@JoinColumn(name = "harbour_id")
+    private Owner owner;
 
+   
 
     public Dog() {
     }
@@ -42,14 +50,16 @@ public class Dog implements Serializable {
         this.gender = gender;
         this.birthdate = birthdate;
     }
+    
 
-    public Dog(Integer id, String name, String breed, String image, String gender, String birthdate) {
+    public Dog(Integer id, String name, String breed, String image, String gender, String birthdate, Owner owner) {
         this.id = id;
         this.name = name;
         this.breed = breed;
         this.image = image;
         this.gender = gender;
         this.birthdate = birthdate;
+        this.owner = owner;
     }
 
     public Integer getId() {
@@ -98,6 +108,15 @@ public class Dog implements Serializable {
 
     public void setBirthdate(String birthdate) {
         this.birthdate = birthdate;
+    }
+    
+    
+    public Owner getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Owner owner) {
+        this.owner = owner;
     }
     
     
