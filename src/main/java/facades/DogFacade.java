@@ -57,7 +57,7 @@ public class DogFacade implements DogRepository {
     @Override
     public DogDTO createDog(DogDTO dogDTO) throws WebApplicationException {
         EntityManager em = emf.createEntityManager();
-        Dog dog = new Dog(dogDTO.getName(), dogDTO.getBreed(), dogDTO.getImage(), dogDTO.getImage(), dogDTO.getBirthdate());
+        Dog dog = new Dog(dogDTO.getName(), dogDTO.getBreed(), dogDTO.getImage(), dogDTO.getGender(), dogDTO.getBirthdate());
         try {
             em.getTransaction().begin();
             em.persist(dog);
@@ -101,17 +101,11 @@ public class DogFacade implements DogRepository {
             dog = em.find(Dog.class, dogDTO.getId());
             System.out.println("Dog: " + dog);
             
-//            owner = (Owner) em
-//                .createQuery("SELECT o FROM owner o WHERE o.name = :name")
-//                .setParameter("name", ownerDTO.getName())
-//                .getSingleResult();
-                        
-            
             dog.setName(dogDTO.getName());
             dog.setBreed(dogDTO.getBreed());
             dog.setImage(dogDTO.getImage());
-            dog.setGender(dog.getGender());
-            dog.setBirthdate(dog.getBirthdate());
+            dog.setGender(dogDTO.getGender());
+            dog.setBirthdate(dogDTO.getBirthdate());
             
             em.persist(dog);
             em.getTransaction().commit();
@@ -122,6 +116,26 @@ public class DogFacade implements DogRepository {
         }
         return new DogDTO(dog);
         
+    }
+    
+    
+    @Override
+    public void delete(int id) throws WebApplicationException {
+        
+        EntityManager em = emf.createEntityManager();
+        Dog dog;
+                 
+        try {
+            em.getTransaction().begin();
+            dog = em.find(Dog.class, id);
+            em.remove(dog);
+            em.getTransaction().commit();
+        } catch (RuntimeException e) {
+            throw new WebApplicationException("not found - NÅ");
+        } finally {
+            em.close();
+        }
+       
     }
         
         

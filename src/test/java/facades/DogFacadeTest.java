@@ -75,7 +75,7 @@ public class DogFacadeTest {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            em.createNamedQuery("Dog.deleteAllRows").executeUpdate();
+            // em.createNamedQuery("Dog.deleteAllRows").executeUpdate();
             em.getTransaction().commit();
         } finally {
             em.close();
@@ -129,6 +129,14 @@ public class DogFacadeTest {
 //        System.out.println(edit);
 //        assertNotEquals(dogDTO, edit);
 //        
+    }
+    
+    @Test
+    public void testDeletedog() {
+
+        
+        
+        
     }
 
 }

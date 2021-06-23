@@ -16,6 +16,8 @@ public interface DogRepository {
     public DogDTO edit(DogDTO dogDTO) throws WebApplicationException;
     
     public void populate() throws WebApplicationException;
+    
+    public void delete(int id) throws WebApplicationException;
 
     
     

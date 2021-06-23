@@ -54,8 +54,7 @@ public class DogResource extends Provider {
         DogDTO createdDog = REPO.createDog(dogDTO);
         return Response.ok(createdDog).build();
     }
-    
-    
+
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
@@ -63,23 +62,21 @@ public class DogResource extends Provider {
     public Response edit(String jsonBody) {
         DogDTO dogDTO = gson.fromJson(jsonBody, DogDTO.class);
         DogDTO editDog = REPO.edit(dogDTO);
-        return Response.ok(editDog).build();        
+        return Response.ok(editDog).build();
     }
 
     @Override
     @RolesAllowed("admin")
     public Response update(int id, String jsonBody) {
-        
-        
         //TODO (tz): implement this!
         throw new UnsupportedOperationException("Not yet implemented!");
     }
 
     @Override
-    @RolesAllowed("admin")
+    // @RolesAllowed("admin")
     public Response delete(int id) {
-        //TODO (tz): implement this!
-        throw new UnsupportedOperationException("Not yet implemented!");
+        REPO.delete(id);
+        return Response.ok().build();
     }
 
     @GET
@@ -88,4 +85,5 @@ public class DogResource extends Provider {
         REPO.populate();
         return Response.ok("a few doggies - Hurra").build();
     }
+
 }
