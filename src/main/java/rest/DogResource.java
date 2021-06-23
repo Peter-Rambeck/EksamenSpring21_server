@@ -74,7 +74,7 @@ public class DogResource extends Provider {
     public Response addOwner(@PathParam("id") int id, String jsonBody) {
         DogDTO dogDTO = gson.fromJson(jsonBody, DogDTO.class);
         DogDTO addOwner = REPO.addOwner(id, dogDTO);
-        return Response.ok(addOwner).build();
+        return Response.ok(addOwner).build(); 
     }
 
     @Override
