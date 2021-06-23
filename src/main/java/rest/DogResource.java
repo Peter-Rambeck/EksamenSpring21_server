@@ -13,6 +13,7 @@ import rest.provider.Provider;
 import facades.WalkerFacade;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -52,10 +53,21 @@ public class DogResource extends Provider {
         DogDTO createdDog = REPO.createDog(dogDTO);
         return Response.ok(createdDog).build();
     }
+    
+    
+    @PUT
+    @Path("/edit")
+    public Response edit(String jsonBody) {
+        DogDTO dogDTO = gson.fromJson(jsonBody, DogDTO.class);
+        DogDTO editDog = REPO.edit(dogDTO);
+        return Response.ok(editDog).build();        
+    }
 
     @Override
     @RolesAllowed("admin")
     public Response update(int id, String jsonBody) {
+        
+        
         //TODO (tz): implement this!
         throw new UnsupportedOperationException("Not yet implemented!");
     }

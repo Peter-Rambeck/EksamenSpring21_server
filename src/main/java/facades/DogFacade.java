@@ -87,4 +87,50 @@ public class DogFacade implements DogRepository {
         }
     }
 
+    @Override
+    public DogDTO edit(DogDTO dogDTO) throws WebApplicationException {
+        
+        EntityManager em = emf.createEntityManager();
+        Dog dog;
+        
+        System.out.println("ID: " + dogDTO.getId());
+         
+        try {
+            em.getTransaction().begin();
+            
+            dog = em.find(Dog.class, dogDTO.getId());
+            System.out.println("Dog: " + dog);
+            
+//            owner = (Owner) em
+//                .createQuery("SELECT o FROM owner o WHERE o.name = :name")
+//                .setParameter("name", ownerDTO.getName())
+//                .getSingleResult();
+                        
+            
+            dog.setName(dogDTO.getName());
+            dog.setBreed(dogDTO.getBreed());
+            dog.setImage(dogDTO.getImage());
+            dog.setGender(dog.getGender());
+            dog.setBirthdate(dog.getBirthdate());
+            
+            em.persist(dog);
+            em.getTransaction().commit();
+        } catch (RuntimeException e) {
+            throw new WebApplicationException("not found - NÅ");
+        } finally {
+            em.close();
+        }
+        return new DogDTO(dog);
+        
+    }
+        
+        
+        
+        
+        
+        
+        
+        
+    
+
 }

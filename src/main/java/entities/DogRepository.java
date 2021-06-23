@@ -13,7 +13,10 @@ public interface DogRepository {
 
     public DogDTO createDog(DogDTO dogDTO) throws WebApplicationException;
     
+    public DogDTO edit(DogDTO dogDTO) throws WebApplicationException;
+    
     public void populate() throws WebApplicationException;
 
+    
     
 }
